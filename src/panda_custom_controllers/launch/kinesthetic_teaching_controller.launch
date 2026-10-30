@@ -1,0 +1,26 @@
+<launch>
+  <!-- Supplying robot_ip explicitly helps prevent connecting to the wrong arm. -->
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg name="start_controller" default="true" />
+  <arg name="config_file"
+       default="$(find panda_custom_controllers)/config/kinesthetic_teaching_controller_config.yaml" />
+
+  <param name="/use_sim_time" value="false" />
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+  </include>
+
+  <rosparam command="load"
+    file="$(arg config_file)" />
+
+  <!-- Normal teleoperation mode: load and start the controller automatically. -->
+  <node pkg="controller_manager"
+        type="spawner"
+        name="kinesthetic_teaching_controller_spawner"
+        args="kinesthetic_teaching_controller"
+        if="$(arg start_controller)"
+        output="screen" />
+</launch>

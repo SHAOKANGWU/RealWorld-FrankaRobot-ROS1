@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/usr/include/**",
+        "/usr/include/eigen3/**",
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/src/panda_custom_controllers/include/**",
+        "/home/robot-learn/libtorch/**",
+        "/opt/ros/noetic/**",
+        "/home/robot-learn/librealsense/third-party/**",
+        "/home/robot-learn/librealsense/wrappers/opencv/**",
+        "/home/robot-learn/osqp/**"
+      ],
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+      "name": "robotlearn",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/g++",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,24 @@
+<launch>
+  <arg name="observation_config_file" default="$(find observation_receiver)/config/observation_receiver.yaml" />
+
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg name="align_depth" default="true" />
+
+  <!-- The RGB-D localizer requires depth registered to the color image. -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="align_depth" value="$(arg align_depth)" />
+  </include>
+
+  <!-- Start the real robot, position trajectory controller, and move_group. -->
+  <include file="$(find panda_moveit_config)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="load_gripper" value="$(arg load_gripper)"/>
+  </include>
+
+  <!-- Start observation receiver -->
+  <include file="$(find observation_receiver)/launch/observation_receiver.launch">
+  <arg name="config_file" value="$(arg observation_config_file)"/>
+  </include>
+
+</launch>

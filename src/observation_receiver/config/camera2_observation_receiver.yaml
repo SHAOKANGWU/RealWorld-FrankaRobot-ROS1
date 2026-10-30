@@ -1,0 +1,28 @@
+# External camera2 only, synchronized with robot and gripper state.
+# Camera order defines the matching camera_names and images array order.
+# Replace these example topics with those published by your camera drivers.
+cameras:
+  - name: camera2
+    image_topic: /camera2/color/image_raw
+
+# Robot and output topics
+state_topic: /franka_state_controller/franka_states
+gripper_topic: /franka_gripper/joint_states
+output_topic: /multi_camera_synchronized_observation
+
+# ROS publisher and subscriber queues
+publisher_queue_size: 1
+image_queue_size: 1
+image_buffer_size: 16777216  # 16 MiB per camera subscriber
+state_queue_size: 10
+gripper_queue_size: 10
+
+# ApproximateTimeSynchronizer settings
+# All cameras, robot state, and gripper state must arrive within this window.
+# A missing camera prevents publication; this is not hardware camera triggering.
+sync_queue_size: 10
+sync_slop: 0.05  # seconds
+
+# Report per-topic arrival rates, timestamp ages and synchronized output rate.
+diagnostic_period: 5.0
+max_input_age: 0.5

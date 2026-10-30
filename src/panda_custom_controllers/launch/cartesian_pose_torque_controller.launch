@@ -1,0 +1,31 @@
+<launch>
+  <!-- Supplying robot_ip explicitly helps prevent connecting to the wrong arm. -->
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg name="start_controller" default="true" />
+  <arg name="enable_gripper" default="" />
+  <arg name="config_file"
+       default="$(find panda_custom_controllers)/config/cartesian_pose_torque_controller.yaml" />
+
+  <param name="/use_sim_time" value="false" />
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+  </include>
+
+  <rosparam command="load"
+    file="$(arg config_file)" />
+  <!-- Set before controller initialization; used by position-only policies. -->
+  <param name="cartesian_pose_torque_controller/enable_gripper"
+         value="$(arg enable_gripper)" type="bool"
+         if="$(eval arg('enable_gripper') != '')" />
+
+  <!-- Normal teleoperation mode: load and start the controller automatically. -->
+  <node pkg="controller_manager"
+        type="spawner"
+        name="cartesian_pose_torque_controller_spawner"
+        args="cartesian_pose_torque_controller"
+        if="$(arg start_controller)"
+        output="screen" />
+</launch>

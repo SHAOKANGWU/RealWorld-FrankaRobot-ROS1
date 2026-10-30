@@ -1,0 +1,3 @@
+# 1.x supports ROS Noetic's Python 3.8; Responses requires >=1.66.
+# The SDK brings its own compatible pydantic/httpx dependencies.
+openai>=1.66.0,<2.0.0

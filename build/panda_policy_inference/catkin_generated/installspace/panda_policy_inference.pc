@@ -1,0 +1,8 @@
+prefix=/home/robot-learn/ros_franka_robotlearn/install
+
+Name: panda_policy_inference
+Description: Description of panda_policy_inference
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: observation_receiver rospy std_msgs geometry_msgs

@@ -1,0 +1,8 @@
+prefix=/home/robot-learn/ros_franka_robotlearn/devel
+
+Name: panda_reproduction
+Description: Description of panda_reproduction
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: panda_custom_controllers rospy std_msgs geometry_msgs

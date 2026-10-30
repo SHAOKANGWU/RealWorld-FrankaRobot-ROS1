@@ -1,0 +1,15 @@
+<launch>
+  <arg
+      name="config_file"
+      default="$(find observation_receiver)/config/observation_receiver.yaml" />
+
+  <node
+      pkg="observation_receiver"
+      type="observation_receiver_node.py"
+      name="observation_receiver"
+      output="screen">
+    <rosparam
+        command="load"
+        file="$(arg config_file)" />
+  </node>
+</launch>

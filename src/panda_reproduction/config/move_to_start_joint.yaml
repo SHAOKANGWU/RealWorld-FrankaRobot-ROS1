@@ -1,0 +1,6 @@
+# Loaded into the move_to_start_joint node's private namespace.
+velocity_scaling: 0.05
+acceleration_scaling: 0.05
+max_joint_distance: 1.0
+joint_tolerance: 0.02
+joint_limit_margin: 0.01

@@ -1,0 +1,5 @@
+# Loaded into the demo_recorder node's private namespace.
+jpeg_quality: 95
+franka_state_topic: /franka_state_controller/franka_states
+gripper_joint_states_topic: /franka_gripper/joint_states
+image_topic: /camera/color/image_raw

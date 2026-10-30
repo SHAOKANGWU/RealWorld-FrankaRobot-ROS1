@@ -1,0 +1,27 @@
+<launch>
+
+  <arg name="enable_gripper" default="true" />
+  <arg name="config_file"
+      default="$(find panda_spacemouse_teleop)/config/spacemouse.yaml" />
+
+  <node
+      pkg="spacenav_node"
+      type="spacenav_node"
+      name="spacenav_node"
+      output="screen" />
+
+  <node
+      pkg="panda_spacemouse_teleop"
+      type="spacemouse_mapper.py"
+      name="spacemouse_mapper"
+      output="screen">
+
+    <rosparam
+        command="load"
+      file="$(arg config_file)" />
+
+    <param name="enable_gripper" value="$(arg enable_gripper)" />
+
+  </node>
+
+</launch>

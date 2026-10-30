@@ -1,0 +1,16 @@
+# Topics
+image_topic: /camera/color/image_raw
+state_topic: /franka_state_controller/franka_states
+gripper_topic: /franka_gripper/joint_states
+output_topic: /synchronized_observation
+
+# ROS publisher and subscriber queues
+publisher_queue_size: 1
+image_queue_size: 1
+image_buffer_size: 16777216  # 16 MiB
+state_queue_size: 10
+gripper_queue_size: 10
+
+# ApproximateTimeSynchronizer settings
+sync_queue_size: 10
+sync_slop: 0.05  # seconds

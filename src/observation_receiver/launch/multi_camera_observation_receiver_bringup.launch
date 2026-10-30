@@ -1,0 +1,31 @@
+<launch>
+  <arg name="robot_ip" />
+  <arg name="robot" default="panda" />
+  <arg name="arm_id" default="panda" />
+  <arg
+      name="config_file"
+      default="$(find observation_receiver)/config/multi_camera_observation_receiver.yaml" />
+
+  <include file="$(find realsense2_camera)/launch/rs_multiple_devices.launch">
+    <arg name="serial_no_camera1" value="213522251541" />
+    <arg name="serial_no_camera2" value="213522252775" />
+  </include>
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="robot" value="$(arg robot)" />
+    <arg name="arm_id" value="$(arg arm_id)" />
+    <!-- Gripper state is required alongside all camera images and robot state. -->
+    <arg name="load_gripper" value="true" />
+  </include>
+
+  <node
+      pkg="observation_receiver"
+      type="multi_camera_observation_receiver_node.py"
+      name="multi_camera_observation_receiver"
+      output="screen">
+    <rosparam
+        command="load"
+        file="$(arg config_file)" />
+  </node>
+</launch>

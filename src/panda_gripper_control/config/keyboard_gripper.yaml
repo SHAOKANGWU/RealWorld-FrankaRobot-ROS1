@@ -1,0 +1,23 @@
+# Franka gripper action servers
+grasp_action_name: /franka_gripper/grasp
+move_action_name: /franka_gripper/move
+stop_action_name: /franka_gripper/stop
+
+# Gripper command settings
+open_width: 0.08       # [m]
+grasp_width: 0.00      # [m]
+speed: 0.07            # [m/s]
+force: 20.0            # [N]
+epsilon_inner: 0.005   # [m]
+epsilon_outer: 0.08    # [m]
+
+# Connection and shutdown timeouts
+server_timeout: 10.0   # [s]
+stop_timeout: 2.0      # [s]
+
+# Keyboard mapping (single, distinct characters)
+grasp_key: g
+release_key: r
+stop_key: s
+quit_key: q
+key_poll_period: 0.1   # [s]

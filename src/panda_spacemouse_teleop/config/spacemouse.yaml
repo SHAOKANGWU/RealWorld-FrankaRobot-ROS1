@@ -1,0 +1,30 @@
+max_linear_velocity: 0.10
+max_angular_velocity: 0.20
+
+command_frame: panda_link0
+
+publish_rate: 50.0
+input_timeout: 0.2
+joy_timeout: 0.5
+
+# Arm motion does not require a button. Set this to true to restore a deadman.
+require_deadman: false
+deadman_buttons: [0, 1]
+
+twist_topic: /spacenav/twist
+joy_topic: /spacenav/joy
+command_topic: /teleop/cartesian_velocity_cmd
+gripper_command_topic: /teleop/gripper_command
+
+gripper_button_1: 0
+gripper_button_2: 1
+enable_gripper: true
+
+gripper_open_width: 0.08
+gripper_grasp_width: 0.00
+
+gripper_speed: 0.05
+gripper_force: 20.0
+
+grasp_epsilon_inner: 0.005
+grasp_epsilon_outer: 0.08

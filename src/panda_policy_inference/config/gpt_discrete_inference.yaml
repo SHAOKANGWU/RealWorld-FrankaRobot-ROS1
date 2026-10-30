@@ -1,0 +1,60 @@
+# Loaded into the node's private namespace by gpt_discrete_inference.launch.
+sensor_topic: /synchronized_observation
+base_frame: panda_link0
+planning_group: panda_arm
+end_effector_link: panda_link8
+controller_name: position_joint_trajectory_controller
+
+model_name: gpt-5.6-terra  # Retains prototype choice; requires account access.
+reasoning_effort: ""     # Omit model-specific setting; set 'low' if supported.
+task_description: ""     # Set via the launch task argument.
+camera_context: >-
+  Fixed overhead camera. Measured mapping: image-up is panda_link0 -X and image-left is panda_link0 -Y. 
+  The marker is on the horizontal table plane. 
+  Use only X/Y actions; Z cannot be determined from this RGB image
+
+# One API request and logged target, no command publisher, in dry run.
+dry_run: true
+step_size: 0.05          # 5 cm per action
+max_decisions: 20        # bounded API requests / steps per live run
+min_confidence: 0.7      # model self-report, not a calibrated safety probability
+history_size: 5
+
+# EXAMPLE bounds in panda_link0, metres. Adjust for YOUR table, robot and task.
+# These bounds are an extra guard; MoveIt separately checks its planning scene
+# and joint limits. Objects absent from the planning scene are not protected.
+workspace_min: [0.35, -0.30, 0.12]
+workspace_max: [0.70, 0.30, 0.55]
+
+api_timeout: 20.0        # no SDK retries; late decisions are rejected
+max_image_side: 768
+max_output_tokens: 1024
+
+# Observation and stale-decision checks.
+observation_timeout: 10.0
+max_sensor_age: 0.5
+max_sync_skew: 0.1
+max_decision_age: 30.0
+max_pre_execution_drift: 0.003
+max_pre_execution_joint_drift: 0.02
+stationary_joint_speed: 0.03
+
+# MoveIt plans a straight Cartesian path for panda_link8. Velocity and
+# acceleration scaling apply when MoveIt time-parameterizes that path.
+moveit_wait_timeout: 30.0
+controller_timeout: 5.0
+planning_time: 5.0
+planning_attempts: 5
+velocity_scaling: 0.05
+acceleration_scaling: 0.05
+cartesian_eef_step: 0.002
+min_cartesian_fraction: 0.999
+
+# Feedback and frame-consistency tolerances.
+position_tolerance: 0.004
+orientation_tolerance: 0.04
+moveit_state_tolerance: 0.02
+moveit_orientation_tolerance: 0.10
+settle_time: 0.4
+motion_timeout: 8.0
+settle_poll_rate: 20.0

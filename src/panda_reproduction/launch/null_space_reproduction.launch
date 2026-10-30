@@ -1,0 +1,37 @@
+<launch>
+  <arg name="config_file"
+       default="$(find panda_reproduction)/config/null_space_reproduction.yaml"/>
+  <arg name="controller_config_file"
+       default="$(find panda_custom_controllers)/config/null_space_torque_controller.yaml"/>
+  <arg name="trajectory_file" default=""/>
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+
+  <param name="/use_sim_time" value="false" />
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+  </include>
+
+  <rosparam command="load"
+            file="$(arg controller_config_file)" />
+  <param name="/null_space_torque_controller/enable_gripper"
+         value="$(arg load_gripper)" />
+
+  <!-- Load and start the arm controller before replaying its commands. -->
+  <node pkg="controller_manager"
+        type="spawner"
+        name="null_space_torque_controller_spawner"
+        args="null_space_torque_controller"
+        output="screen" />
+
+  <rosparam command="load" file="$(arg config_file)"/>
+  <param name="/null_space_reproduction/trajectory_file"
+         value="$(arg trajectory_file)"
+         if="$(eval arg('trajectory_file') != '')"/>
+  <node pkg="panda_reproduction"
+        type="null_space_reproduction.py"
+        name="null_space_reproduction"
+        output="screen"/>
+</launch>

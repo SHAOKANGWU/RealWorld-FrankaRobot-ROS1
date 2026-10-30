@@ -1,0 +1,8 @@
+prefix=/home/robot-learn/ros_franka_robotlearn/devel
+
+Name: panda_gripper_control
+Description: Description of panda_gripper_control
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: actionlib actionlib_msgs franka_gripper rospy

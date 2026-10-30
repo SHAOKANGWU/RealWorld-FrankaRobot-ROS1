@@ -1,0 +1,27 @@
+# Refined from seven camera-point / Panda palm-contact correspondences.
+# The fixed palm contact point was modeled as 0.03743785 m along
+# panda_hand_tcp -Z. Held-out validation reduced error from 10.09 mm to
+# 5.41 mm, and live upper-left validation measured 3.87 mm error.
+#
+# The calibration was refined as panda_link0 -> camera_color_optical_frame,
+# then converted to panda_link0 -> camera_link using the RealSense driver's
+# fixed internal transforms.  Attaching the camera at its root keeps one valid
+# TF tree; the composed optical-frame transform remains exactly the same.
+parameters:
+  eye_on_hand: false
+  freehand_robot_movement: true
+  move_group: manipulator
+  move_group_namespace: /
+  namespace: /panda_realsense_eye_on_base_eye_on_base/
+  robot_base_frame: panda_link0
+  robot_effector_frame: panda_hand_tcp
+  tracking_base_frame: camera_link
+  tracking_marker_frame: aruco_marker_frame
+transformation:
+  qw: 0.018901323894573142
+  qx: -0.7133278611149765
+  qy: -0.001247908570540024
+  qz: 0.7005744394683302
+  x: 0.6882315677996329
+  y: -0.06772204179381358
+  z: 1.148956719287119

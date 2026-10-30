@@ -1,0 +1,41 @@
+null_space_torque_controller:
+  type: panda_custom_controllers/NullSpaceTorqueController
+  arm_id: panda
+  joint_names:
+    - panda_joint1
+    - panda_joint2
+    - panda_joint3
+    - panda_joint4
+    - panda_joint5
+    - panda_joint6
+    - panda_joint7
+
+  # One atomic command containing the primary Cartesian pose, secondary joint
+  # target, and Boolean gripper state for the same trajectory sample.
+  command_topic: desired_null_space_command
+  base_frame: panda_link0
+
+  # Joint-space impedance gains used after combining the primary and secondary motions.
+  # These defaults match the active gains in HSD_DPC.cpp.
+  k_gains: [150.0, 150.0, 150.0, 80.0, 80.0, 40.0, 40.0]
+  d_gains: [25.0, 25.0, 25.0, 18.0, 18.0, 11.0, 11.0]
+
+  nullspace_weight: 1.0
+  pseudoinverse_tolerance: 1.0e-6
+  coriolis_factor: 1.0
+  delta_tau_max: 1.0
+
+  # The command's gripper_grasp field: true grasps; false opens.
+  # Gripper actions execute asynchronously from the arm's real-time torque loop.
+  enable_gripper: true
+  gripper_move_action_name: /franka_gripper/move
+  gripper_grasp_action_name: /franka_gripper/grasp
+  gripper_speed: 0.05
+  gripper_force: 20.0
+  gripper_open_width: 0.08
+
+  # A zero target and wide outer tolerance allow contact at an unknown object width.
+  gripper_grasp_width: 0.0
+  gripper_epsilon_inner: 0.005
+  gripper_epsilon_outer: 0.08
+  gripper_server_timeout: 0.5

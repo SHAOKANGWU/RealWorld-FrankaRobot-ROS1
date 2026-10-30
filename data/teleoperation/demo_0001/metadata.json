@@ -1,0 +1,25 @@
+{
+  "recording_start_time": 1790095817.754924,
+  "recording_stop_time": 1790095862.4673626,
+  "duration": 44.71243858337402,
+  "robot_samples": 2172,
+  "gripper_samples": 608,
+  "image_samples": 670,
+  "topics": {
+    "robot_state": "/franka_state_controller/franka_states",
+    "gripper_state": "/franka_gripper/joint_states",
+    "rgb": "/camera/color/image_raw"
+  },
+  "joint_order": [
+    "panda_joint1",
+    "panda_joint2",
+    "panda_joint3",
+    "panda_joint4",
+    "panda_joint5",
+    "panda_joint6",
+    "panda_joint7"
+  ],
+  "ee_quaternion_order": "wxyz",
+  "O_T_EE_storage": "Franka column-major 16-element array",
+  "gripper_width_definition": "sum of the two finger joint positions"
+}

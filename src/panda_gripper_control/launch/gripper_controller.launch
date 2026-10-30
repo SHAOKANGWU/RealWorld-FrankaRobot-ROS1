@@ -1,0 +1,25 @@
+<!-- 
+Launch file for the keyboard gripper controller
+Note, this launch file does include the franka_control node, 
+so you do not need to start franka_control node in advance before running this launch file.
+-->
+
+<launch>
+  <arg name="robot_ip"/>
+  <arg
+      name="config_file"
+      default="$(find panda_gripper_control)/config/keyboard_gripper.yaml" />
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="true" />
+  </include>
+
+  <node
+      pkg="panda_gripper_control"
+      type="keyboard_gripper_controller.py"
+      name="keyboard_gripper_controller"
+      output="screen">
+    <rosparam command="load" file="$(arg config_file)" />
+  </node>
+</launch>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg
+    name="calibration_file"
+    default="$(find rgbd_object_localization)/config/panda_realsense_eye_on_base_eye_on_base.yaml"
+  />
+
+  <!-- Start RGB and depth streams registered in the color-image frame. -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+    <arg name="align_depth" value="true" />
+  </include>
+
+  <!-- Start the real Panda, gripper, joint states, and robot TF. -->
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+  </include>
+
+  <!-- Publish the calibrated camera TF and start mouse-click localization. -->
+  <include
+    file="$(find rgbd_object_localization)/launch/manual_rgbd_base_localizer.launch"
+  >
+    <arg name="calibration_file" value="$(arg calibration_file)" />
+    <arg name="publish_calibration" value="true" />
+  </include>
+</launch>

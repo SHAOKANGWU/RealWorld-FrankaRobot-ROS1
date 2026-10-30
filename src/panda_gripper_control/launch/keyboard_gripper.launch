@@ -1,0 +1,20 @@
+<!-- 
+Launch file for the keyboard gripper controller
+Note, this launch file does not start the franka_control node, 
+so you need to start franka_control node in advance before running this launch file. 
+You can do this by running the franka_control.launch file in the franka_control package.
+-->
+
+<launch>
+  <arg
+      name="config_file"
+      default="$(find panda_gripper_control)/config/keyboard_gripper.yaml" />
+
+  <node
+      pkg="panda_gripper_control"
+      type="keyboard_gripper_controller.py"
+      name="keyboard_gripper_controller"
+      output="screen">
+    <rosparam command="load" file="$(arg config_file)" />
+  </node>
+</launch>

@@ -1,0 +1,37 @@
+joint_position_torque_controller:
+  type: panda_custom_controllers/JointPositionTorqueController
+  arm_id: panda
+  joint_names:
+    - panda_joint1
+    - panda_joint2
+    - panda_joint3
+    - panda_joint4
+    - panda_joint5
+    - panda_joint6
+    - panda_joint7
+
+  # tau = K * (q_desired - q) - D * dq + coriolis
+  # Initial lower-stiffness trial: half the previous K values, with damping retained.
+  k_gains: [300.0, 300.0, 300.0, 300.0, 125.0, 75.0, 25.0]
+  d_gains: [50.0, 50.0, 50.0, 20.0, 20.0, 20.0, 10.0]
+  coriolis_factor: 1.0
+
+  # Maximum change in commanded torque per 1 kHz control step, in Nm.
+  delta_tau_max: 1.0
+  # Atomic JointPositionCommand containing seven positions and a Boolean gripper state.
+  command_topic: desired_joint_position_command
+
+  # The command's gripper_grasp field: true grasps; false opens.
+  # Gripper actions execute asynchronously from the arm's real-time torque loop.
+  enable_gripper: true
+  gripper_move_action_name: /franka_gripper/move
+  gripper_grasp_action_name: /franka_gripper/grasp
+  gripper_speed: 0.05
+  gripper_force: 20.0
+  gripper_open_width: 0.08
+
+  # A zero target and wide outer tolerance allow contact at an unknown object width.
+  gripper_grasp_width: 0.0
+  gripper_epsilon_inner: 0.005
+  gripper_epsilon_outer: 0.08
+  gripper_server_timeout: 0.5

@@ -1,0 +1,24 @@
+<launch>
+  <!-- Keep the robot address explicit to avoid connecting to the wrong arm. -->
+  <arg name="robot_ip" />
+  <arg name="robot" default="panda" />
+  <arg name="arm_id" default="panda" />
+  <arg
+      name="config_file"
+      default="$(find observation_receiver)/config/observation_receiver.yaml" />
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+
+  <include file="$(find franka_control)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="robot" value="$(arg robot)" />
+    <arg name="arm_id" value="$(arg arm_id)" />
+    <!-- Gripper state is required by the three-message synchronizer. -->
+    <arg name="load_gripper" value="true" />
+  </include>
+
+  <include
+      file="$(find observation_receiver)/launch/observation_receiver.launch">
+    <arg name="config_file" value="$(arg config_file)" />
+  </include>
+</launch>

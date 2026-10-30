@@ -1,0 +1,30 @@
+<launch>
+  <arg name="output_root"
+       default="$(env HOME)/ros_franka_robotlearn/data/kinesthetic" />
+  <arg name="config_file"
+       default="$(find panda_demo_recorder)/config/demo_recorder.yaml" />
+  <arg name="controller_config_file"
+       default="$(find panda_custom_controllers)/config/kinesthetic_teaching_controller_config.yaml" />
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg name="start_controller" default="true" />
+
+  <!-- Start the camera that publishes /camera/color/image_raw. -->
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch" />
+
+  <!-- Start Franka state/gripper publishers and kinesthetic teaching. -->
+  <include file="$(find panda_custom_controllers)/launch/kinesthetic_teaching_controller.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+    <arg name="start_controller" value="$(arg start_controller)" />
+    <arg name="config_file" value="$(arg controller_config_file)" />
+  </include>
+
+  <node pkg="panda_demo_recorder"
+        type="demo_recorder.py"
+        name="demo_recorder"
+        output="screen">
+    <rosparam command="load" file="$(arg config_file)" />
+    <param name="output_root" value="$(arg output_root)" />
+  </node>
+</launch>

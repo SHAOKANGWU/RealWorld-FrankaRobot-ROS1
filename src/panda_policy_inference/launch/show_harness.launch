@@ -1,0 +1,14 @@
+<launch>
+  <arg name="camera2_only" default="false" />
+  <arg name="config_file" default="$(eval find('panda_policy_inference') + '/config/' + ('show_harness_camera2.yaml' if arg('camera2_only') else 'show_harness.yaml'))" />
+  <arg name="task" />
+  <arg name="dry_run" default="true" />
+  <arg name="episode_log" default="" />
+  <!-- Full profiles replace earlier camera guidance in this namespace. -->
+  <node pkg="panda_policy_inference" type="show_harness.py" name="show_harness" output="screen" clear_params="true">
+    <rosparam command="load" file="$(arg config_file)" />
+    <param name="task_description" value="$(arg task)" />
+    <param name="dry_run" value="$(arg dry_run)" type="bool" />
+    <param name="episode_log" value="$(arg episode_log)" if="$(eval arg('episode_log') != '')" />
+  </node>
+</launch>

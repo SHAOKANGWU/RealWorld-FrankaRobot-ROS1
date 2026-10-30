@@ -1,0 +1,18 @@
+<launch>
+  <arg name="config_file" default="$(find panda_policy_inference)/config/gpt_discrete_inference.yaml" />
+  <arg name="task" />
+  <arg name="dry_run" default="true" />
+  <!-- Optional command-line override. Leave empty to use camera_context from YAML. -->
+  <arg name="camera_context" default="" />
+
+  <!-- Start GPT discrete inference -->
+  <node pkg="panda_policy_inference" type="gpt_discrete_inference.py"
+        name="gpt_discrete_inference" output="screen">
+    <rosparam command="load" file="$(arg config_file)" />
+    <param name="task_description" value="$(arg task)" />
+    <param name="dry_run" value="$(arg dry_run)" type="bool" />
+    <param name="camera_context" value="$(arg camera_context)"
+           if="$(eval arg('camera_context') != '')" />
+  </node>
+
+</launch>

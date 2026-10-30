@@ -1,0 +1,20 @@
+franka_state_controller:
+  publish_rate: 50.0
+
+cartesian_velocity_teleop_controller:
+
+  type: panda_custom_controllers/CartesianVelocityTeleopController
+
+  arm_id: panda
+
+  command_topic: /teleop/cartesian_velocity_cmd
+
+  command_frame: panda_link0
+
+  command_timeout: 0.20
+
+  max_linear_velocity: 0.03
+  max_angular_velocity: 0.20
+
+  max_linear_acceleration: 0.10
+  max_angular_acceleration: 0.50

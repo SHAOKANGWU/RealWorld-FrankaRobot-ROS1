@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/robot-learn/ros_franka_robotlearn/devel/setup.sh

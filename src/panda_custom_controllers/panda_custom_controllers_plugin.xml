@@ -1,0 +1,52 @@
+<library path="lib/libpanda_custom_controllers">
+
+  <class
+      name="panda_custom_controllers/CartesianVelocityTeleopController"
+      type="panda_custom_controllers::CartesianVelocityTeleopController"
+      base_class_type="controller_interface::ControllerBase">
+
+    <description>
+      Executes Cartesian velocity commands for teleoperation.
+    </description>
+
+  </class>
+
+  <class
+      name="panda_custom_controllers/KinestheticTeachingController"
+      type="panda_custom_controllers::KinestheticTeachingController"
+      base_class_type="controller_interface::ControllerBase">
+    <description>
+      Gravity-compensation controller for kinesthetic teaching.
+    </description>
+  </class>
+
+
+  <class name="panda_custom_controllers/JointPositionTorqueController"
+        type="panda_custom_controllers::JointPositionTorqueController"
+        base_class_type="controller_interface::ControllerBase">
+  <description>
+    Joint-space PD controller that accepts desired positions and commands joint torques.
+  </description>
+  </class>
+
+
+  <class name="panda_custom_controllers/CartesianPoseTorqueController"
+         type="panda_custom_controllers::CartesianPoseTorqueController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      Cartesian impedance controller that accepts desired end-effector poses and commands joint
+      torques using a Jacobian-transpose task.
+    </description>
+  </class>
+  
+  
+  <class name="panda_custom_controllers/NullSpaceTorqueController"
+         type="panda_custom_controllers::NullSpaceTorqueController"
+         base_class_type="controller_interface::ControllerBase">
+    <description>
+      Hierarchical torque controller with a primary Cartesian pose task and secondary joint motion
+      projected into the Jacobian null space.
+    </description>
+  </class>
+
+</library>

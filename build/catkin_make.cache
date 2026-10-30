@@ -1,0 +1,2 @@
+easy_handeye/easy_handeye:easy_handeye/easy_handeye_msgs:easy_handeye/rqt_easy_handeye:observation_receiver:panda_custom_controllers:panda_demo_recorder:panda_gripper_control:panda_policy_inference:panda_reproduction:panda_spacemouse_teleop:rgbd_object_localization
+-DCATKIN_DEVEL_PREFIX=/home/robot-learn/ros_franka_robotlearn/devel -DCMAKE_INSTALL_PREFIX=/home/robot-learn/ros_franka_robotlearn/install -G Unix Makefiles

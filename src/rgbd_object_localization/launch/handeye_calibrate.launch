@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg
+    name="namespace_prefix"
+    default="panda_realsense_eye_on_base"
+  />
+  <arg name="robot_base_frame" default="panda_link0" />
+  <arg name="robot_effector_frame" default="panda_hand_tcp" />
+  <!-- Calibrate the optical frame directly because RGB-D points and ArUco
+       poses are expressed in this frame. -->
+  <arg name="tracking_base_frame" default="camera_color_optical_frame" />
+  <arg name="tracking_marker_frame" default="aruco_marker_frame" />
+  <arg name="start_rviz" default="false" />
+  <arg name="start_sampling_gui" default="false" />
+  <arg name="publish_dummy" default="true" />
+
+  <include file="$(find easy_handeye)/launch/calibrate.launch">
+
+    <!-- Fixed camera: eye-to-hand / eye-on-base -->
+    <arg
+      name="eye_on_hand"
+      value="false"
+    />
+
+    <arg
+      name="namespace_prefix"
+      value="$(arg namespace_prefix)"
+    />
+
+    <!-- Robot TF frames -->
+    <arg
+      name="robot_base_frame"
+      value="$(arg robot_base_frame)"
+    />
+
+    <arg
+      name="robot_effector_frame"
+      value="$(arg robot_effector_frame)"
+    />
+
+    <!-- Camera and marker TF frames -->
+    <arg
+      name="tracking_base_frame"
+      value="$(arg tracking_base_frame)"
+    />
+
+    <arg
+      name="tracking_marker_frame"
+      value="$(arg tracking_marker_frame)"
+    />
+
+    <!-- We will position the robot ourselves. -->
+    <arg
+      name="freehand_robot_movement"
+      value="true"
+    />
+
+    <arg name="start_rviz" value="$(arg start_rviz)" />
+    <arg name="start_sampling_gui" value="$(arg start_sampling_gui)" />
+    <arg name="publish_dummy" value="$(arg publish_dummy)" />
+
+  </include>
+</launch>

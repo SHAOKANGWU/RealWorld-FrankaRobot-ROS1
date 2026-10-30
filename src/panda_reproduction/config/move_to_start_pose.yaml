@@ -1,0 +1,7 @@
+# Loaded into the move_to_start_pose node's private namespace.
+velocity_scaling: 0.05
+acceleration_scaling: 0.05
+max_position_distance: 0.30
+max_orientation_distance: 1.57
+position_tolerance: 0.01
+orientation_tolerance: 0.05

@@ -1,0 +1,16 @@
+<launch>
+  <arg
+      name="config_file"
+      default="$(find observation_receiver)/config/multi_camera_observation_receiver.yaml" />
+
+  <!-- Camera drivers and robot/gripper state publishers must already be running. -->
+  <node
+      pkg="observation_receiver"
+      type="multi_camera_observation_receiver_node.py"
+      name="multi_camera_observation_receiver"
+      output="screen">
+    <rosparam
+        command="load"
+        file="$(arg config_file)" />
+  </node>
+</launch>

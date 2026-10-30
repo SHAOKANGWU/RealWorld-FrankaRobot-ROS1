@@ -1,0 +1,22 @@
+<launch>
+  <arg name="robot_ip"/>
+  <arg name="load_gripper" default="true"/>
+  <arg name="trajectory_file"/>
+  <arg name="dry_run" default="false"/>
+  <arg name="config_file"
+       default="$(find panda_reproduction)/config/move_to_start_pose.yaml"/>
+
+  <include file="$(find panda_moveit_config)/launch/franka_control.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="load_gripper" value="$(arg load_gripper)"/>
+  </include>
+
+  <node pkg="panda_reproduction"
+        type="move_to_start_pose.py"
+        name="move_to_start_pose"
+        output="screen">
+    <rosparam command="load" file="$(arg config_file)"/>
+    <param name="trajectory_file" value="$(arg trajectory_file)"/>
+    <param name="dry_run" value="$(arg dry_run)"/>
+  </node>
+</launch>

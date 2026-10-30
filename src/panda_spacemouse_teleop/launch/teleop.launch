@@ -1,0 +1,24 @@
+<launch>
+  <arg name="robot_ip" />
+  <arg name="load_gripper" default="true" />
+  <arg name="start_controller" default="true" />
+  <arg name="controller_config_file"
+       default="$(find panda_custom_controllers)/config/cartesian_velocity_teleop_controller.yaml"/>
+  <arg name="config_file"
+       default="$(find panda_spacemouse_teleop)/config/spacemouse.yaml" />
+
+  <param name="/use_sim_time" value="false"/>
+
+  <include file="$(find panda_custom_controllers)/launch/cartesian_velocity_teleop_controller.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)" />
+    <arg name="load_gripper" value="$(arg load_gripper)" />
+    <arg name="start_controller" value="$(arg start_controller)" />
+    <arg name="config_file" value="$(arg controller_config_file)" />
+  </include>
+
+  <include file="$(find panda_spacemouse_teleop)/launch/spacemouse.launch">
+    <arg name="enable_gripper" value="$(arg load_gripper)" />
+    <arg name="config_file" value="$(arg config_file)" />
+  </include>
+
+</launch>

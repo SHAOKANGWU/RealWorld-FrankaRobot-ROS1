@@ -1,0 +1,8 @@
+prefix=/home/robot-learn/ros_franka_robotlearn/install
+
+Name: panda_custom_controllers
+Description: Description of panda_custom_controllers
+Version: 0.0.0
+Cflags: -I${prefix}/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib -lpanda_custom_controllers
+Requires: actionlib controller_interface franka_gripper hardware_interface pluginlib realtime_tools roscpp sensor_msgs geometry_msgs trajectory_msgs franka_hw std_msgs message_runtime
